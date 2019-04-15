@@ -2,11 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>QuickStart</title>
+  <title>内容管理系统</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- <script src="./ckeditor.js"></script> -->
+  <script src="https://cdn.ckeditor.com/4.9.2/full-all/ckeditor.js"></script>
+  <script>
+    // ACF is enabled by default regardless whether toolbar configuration is provided or not.
+    // By having a smaller number of features enabled in the toolbar it should be easier to understand how ACF works.
+    CKEDITOR.config.toolbar = 	[
+        { name: 'document', items: ['Source', '-', 'Save', 'NewPage', 'DocProps', 'Preview', 'Print', '-', 'Templates'] },
+        { name: 'clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'] },
+        { name: 'editing', items: ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker', 'Scayt'] },
+        {
+          name: 'forms', items: ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+            'HiddenField']
+        },
+        '/',
+        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'] },
+        {
+          name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv',
+            '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl']
+        },
+        { name: 'links', items: ['Link', 'Unlink', 'Anchor'] },
+        { name: 'insert', items: ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'] },
+        '/',
+        { name: 'styles', items: ['Styles', 'Format', 'Font', 'FontSize'] },
+        { name: 'colors', items: ['TextColor', 'BGColor'] },
+        { name: 'tools', items: ['Maximize', 'ShowBlocks', '-', 'About'] }
+      ]
+
+    // Disable paste filter to avoid confusion on browsers on which it is enabled by default and may affect results.
+    // Read more in https://ckeditor.com/docs/ckeditor4/latest/guide/dev_advanced_content_filter-section-filtering-pasted-and-dropped-content
+    CKEDITOR.config.pasteFilter = null;
+
+    CKEDITOR.config.height = 150;
+    // Auto Grow has nothing to do with ACF.
+    // However, to make users comfortable while pasting content into a tiny editing area, we would let the editor grow.
+    CKEDITOR.config.extraPlugins = 'autogrow';
+    CKEDITOR.config.autoGrow_maxHeight = 500;
+    CKEDITOR.config.autoGrow_minHeight = 150;
+  </script>
 </head>
 <body>
   <app-root></app-root>

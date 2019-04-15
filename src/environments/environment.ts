@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   evnName: 'dev',
-  API: 'http://10.9.53.82:8009/api/',
-  projectUrl: 'http://10.9.53.82:8009/'
+  API: 'http://127.0.0.1:3000',
 };
 
 /*

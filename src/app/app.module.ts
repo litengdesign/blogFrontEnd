@@ -10,23 +10,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { NavComponent } from './blocks/nav/nav.component';
-import { ApplicationComponent } from './pages/application/application.component';
 import { PremissionComponent } from './blocks/premission/premission.component';
 import { SearchComponent } from './blocks/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
-import { DefaultComponent } from './layout/default/default.component'
-
+import { DefaultComponent } from './layout/default/default.component';
+import { ProductsComponent } from './pages/products/products.component';
+import { CategorysComponent } from './pages/categorys/categorys.component';
+import { PostsComponent } from './pages/posts/posts.component'
+import { FileUploadModule } from 'ng2-file-upload';
+import { CKEditorModule } from 'ng2-ckeditor';
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    ApplicationComponent,
     PremissionComponent,
     SearchComponent,
     LoginComponent,
-    DefaultComponent
+    DefaultComponent,
+    ProductsComponent,
+    CategorysComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +40,9 @@ registerLocaleData(zh);
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FileUploadModule,
+    CKEditorModule
   ],
   providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]

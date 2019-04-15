@@ -1,8 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ApplicationComponent} from '../app/pages/application/application.component';
-import { LoginComponent} from '../app/pages/login/login.component';
+import { ProductsComponent } from '../app/pages/products/products.component';
+import { PostsComponent } from '../app/pages/posts/posts.component';
+import { CategorysComponent } from '../app/pages/categorys/categorys.component';
+import { LoginComponent} from './pages/login/login.component';
 import { DefaultComponent} from '../app/layout/default/default.component'
+import { AuthGuard } from '../app/auth/auth.guard'
+
 
 
 const routes: Routes = [
@@ -10,16 +14,47 @@ const routes: Routes = [
     path: '',
     component: DefaultComponent,
     children: [
-      { path: '', redirectTo: 'dashboard/v1', pathMatch: 'full' },
-      { path: 'dashboard', redirectTo: 'dashboard/v1', pathMatch: 'full' },
-      { path: 'dashboard/v1', component: ApplicationComponent },
-    ]
+      { 
+        path: '', redirectTo: 'dashboard', pathMatch: 'full' ,
+        data:{
+          breadcrumb:'产品列表'
+        }
+      },
+      { path: 'dashboard', component: ProductsComponent ,
+        data: {
+          breadcrumb: '产品列表'
+        }
+      },
+      { path: 'products', component: ProductsComponent ,
+        data: {
+          breadcrumb: '产品列表'
+        }
+      },
+      { path: 'posts', component: PostsComponent ,
+        data: {
+          breadcrumb: '文章列表'
+        }
+      },
+      { path: 'categorys', component: CategorysComponent,
+        data: {
+          breadcrumb: '产品分类'
+        }
+      },
+      { path: 'brand', component: CategorysComponent,
+        data: {
+          breadcrumb: '品牌列表'
+        }
+       },
+    ],
+    canActivate: [AuthGuard]
+    
   },
   { path: 'login', component: LoginComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard],
 })
 export class AppRoutingModule { }

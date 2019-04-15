@@ -1,0 +1,98 @@
+<app-search (add)="showModal()"></app-search>
+<nz-table #basicTable [nzData]="displayData" nzBordered nzSize="middle">
+  <thead>
+    <tr>
+      <th>文章标题</th>
+      <th>所属分类</th>
+      <th>创建时间</th>
+      <th>发布状态</th>
+      <th>相关操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of basicTable.data">
+      <td>{{ item.name }}</td>
+      <td>{{ item.category.label }}</td>
+      <td>{{ item.createTime }}</td>
+      <td>{{ item.status }}</td>
+      <td>
+        <app-premission (update)="editRow(item)" (delete)="deleteRow(item)"></app-premission>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<!-- 编辑框 -->
+<nz-modal [nzWidth]="960" [(nzVisible)]="isVisible" nzTitle="{{modalTitle}}" nzOkText="确定" nzCancelText="取消"
+  (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()" [nzFooter]="modalFooter" [nzStyle]="{ top: '20px' }">
+  <form nz-form [formGroup]="validateForm" #myForm="ngForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired>文章标题</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <input nz-input formControlName="name" placeholder="请输入" type="text">
+        <nz-form-explain *ngIf="validateForm.get('name').dirty">
+          <ng-container *ngIf="validateForm.get('name').hasError('required')">
+            文章标题不能为空！
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired>文章分类</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <nz-select nzPlaceHolder="请选择" formControlName="category">
+          <nz-option *ngFor="let p of categorys" [nzValue]="p" [nzLabel]="p.label"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">文章描述</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <textarea nz-input rows="3" formControlName="description" placeholder="请输入" type="text"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">文章缩略图</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <nz-upload nzAction="{{api_upload}}" nzListType="picture-card" nzName="file" [(nzFileList)]="fileList"
+          [nzShowButton]="fileList.length < 10" [nzPreview]="handlePreview" [nzMultiple]="true">
+          <i nz-icon type="plus"></i>
+          <div class="ant-upload-text">上传</div>
+        </nz-upload>
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null"
+          (nzOnCancel)="previewVisible=false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+          </ng-template>
+        </nz-modal>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">详细内容</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <form #myForm="ngForm">
+          <div class="form-group has-feedback" [ngClass]="{ 'has-error': myckeditor.invalid && myckeditor.touched }">
+            <ckeditor [(ngModel)]="mycontent" #myckeditor="ngModel" name="myckeditor" required [config]="ckeConfig"
+              debounce="700">
+            </ckeditor>
+          </div>
+        </form>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">是否启用</nz-form-label>
+      <nz-form-control [nzSpan]="1">
+        <nz-switch nzSize="small" formControlName="status"></nz-switch>
+      </nz-form-control>
+      <nz-form-label [nzSpan]="4">是否推荐</nz-form-label>
+      <nz-form-control [nzSpan]="1">
+        <nz-switch nzSize="small" formControlName="isTop"></nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="resetForm()">重置</button>
+    <button nz-button nzType="primary" [disabled]="!validateForm.valid"
+      (click)="submitForm(validateForm.value)">保存</button>
+  </ng-template>
+</nz-modal>

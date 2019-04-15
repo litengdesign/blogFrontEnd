@@ -7,18 +7,18 @@
     <nz-form-item>
       <nz-form-control>
         <nz-input-group [nzPrefix]="prefixUser" class="ant-input-affix-wrapper ant-input-affix-wrapper-lg">
-          <input type="text" nz-input formControlName="UserName" placeholder="用户名">
+          <input type="text" nz-input formControlName="userName" placeholder="用户名">
         </nz-input-group>
-        <nz-form-explain *ngIf="validateForm.get('UserName').dirty && validateForm.get('UserName').errors">请输入用户名!
+        <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">请输入用户名!
         </nz-form-explain>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>
         <nz-input-group [nzPrefix]="prefixLock" class="ant-input-affix-wrapper ant-input-affix-wrapper-lg">
-          <input type="password" nz-input formControlName="Password" placeholder="密码">
+          <input type="password" nz-input formControlName="password" placeholder="密码">
         </nz-input-group>
-        <nz-form-explain *ngIf="validateForm.get('Password').dirty && validateForm.get('Password').errors">请输入密码!
+        <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入密码!
         </nz-form-explain>
       </nz-form-control>
     </nz-form-item>

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { ServersService } from '../../servers.service';
+import { ActivatedRoute } from '@angular/router';
+import { AuthService} from '../../auth/auth.service'
 
 @Component({
   selector: 'app-default',
@@ -9,8 +11,8 @@ import { ServersService } from '../../servers.service';
   styleUrls: ['./default.component.less']
 })
 export class DefaultComponent implements OnInit {
-  constructor(public server:ServersService,public msg: NzMessageService, private router: Router,) { }
-
+  constructor(public server: ServersService, public msg: NzMessageService, private router: Router, public activeRouter: ActivatedRoute, public authServer: AuthService) { }
+  public api_logout = '/api/logout';
   public systemName = this.server.getSystemName();
   text: string = 'Admin';
   color: string = '#1890ff';
@@ -51,8 +53,7 @@ export class DefaultComponent implements OnInit {
   }
   //登出
   logout(): void {
-    this.msg.info('退出成功!');
-    this.router.navigateByUrl('/login');
+    this.authServer.logout();
   }
   //查看消息列表
   openMsg(): void{
@@ -62,6 +63,7 @@ export class DefaultComponent implements OnInit {
     this.visible = false;
   }
   ngOnInit() {
+
   }
 
 }

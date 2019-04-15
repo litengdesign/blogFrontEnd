@@ -6,14 +6,14 @@
           <nz-form-label>关键词</nz-form-label>
         </div>
         <div class="input-group-control">
-          <input nz-input [(ngModel)]="name" id="name" name="name" placeholder="请输入关键词">
+          <input nz-input [(ngModel)]="keyword" id="keyword" name="keyword" placeholder="请输入关键词">
         </div>
       </div>
     </div>
     <div class="pull-left">
       <nz-form-control>
-        <button nz-button nzType="primary" (click)="searchData($event)" [nzLoading]="isLoading">查询</button>
-        <button nz-button nzType="primary" (click)="add($event)" [nzLoading]="isLoading">新增</button>
+        <button nz-button nzType="primary" (click)="search()" [nzLoading]="isLoading">查询</button>
+        <button nz-button nzType="primary" (click)="add()">新增</button>
       </nz-form-control>
     </div>
   </div>

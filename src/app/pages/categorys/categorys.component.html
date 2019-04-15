@@ -1,0 +1,57 @@
+<app-search (add)="showModal()" (search)="searchData($event)"></app-search>
+<nz-table #basicTable [nzData]="displayData" nzBordered nzSize="middle">
+  <thead>
+    <tr>
+      <th>类型</th>
+      <th>分类名称</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of basicTable.data">
+      <td>{{ item.type }}</td>
+      <td>{{ item.name }}</td>
+      <td>
+        <app-premission (update)="updateRow(item)" (delete)="deleteRow(item)"></app-premission>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+<!-- 编辑框 -->
+<nz-modal [nzWidth]="700" [(nzVisible)]="isVisible" nzTitle="{{modalTitle}}" nzOkText="确定" nzCancelText="取消" (nzOnOk)="handleOk()"
+  (nzOnCancel)="handleCancel()" [nzFooter]="modalFooter">
+  <form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired>分类名称</nz-form-label>
+      <nz-form-control [nzSpan]="8">
+        <input nz-input formControlName="categoryName" placeholder="请输入" type="text">
+        <nz-form-explain *ngIf="validateForm.get('categoryName').dirty">
+          <ng-container *ngIf="validateForm.get('categoryName').hasError('required')">
+            分类名称不能为空！
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">分类缩略图</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+       <nz-upload nzAction="{{api_upload}}" nzListType="picture-card" nzName="file" [(nzFileList)]="fileList"
+          [nzShowButton]="fileList.length < 1" [nzPreview]="handlePreview" [nzMultiple]="true">
+          <i nz-icon type="plus"></i>
+          <div class="ant-upload-text">上传</div>
+        </nz-upload>
+        
+        <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+          <ng-template #modalContent>
+            <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+          </ng-template>
+        </nz-modal>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-template #modalFooter>
+    <button nz-button nzType="default" (click)="resetForm()">重置</button>
+    <button nz-button nzType="primary" [disabled]="!validateForm.valid"
+      (click)="submitForm(validateForm.value)">保存</button>
+  </ng-template>
+</nz-modal>
