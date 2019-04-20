@@ -35,7 +35,7 @@ export class ServersService {
         (response: any) => {
           this.msg.info(response.message);
           if (response.status) {
-            observer.next();
+            observer.next(response);
           } else {
             return false;
           }
