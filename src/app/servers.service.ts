@@ -14,16 +14,16 @@ export class ServersService {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' })
   constructor(private http: HttpClient, private msg: NzMessageService) { }
   getSystemName(){
-    return "通用管理系统"
+    return "内容管理系统"
   }
   //通过rxjs获取数据
   getRxjsData(options) {
     return new Observable<any>((observer) => {
       this.http.get(this.configUrl + options.api, { params: options.params }).subscribe((response: any) => {
-        if (response.msg == 'Unauthorized' && location.hostname != 'localhost') {
-          window.location.reload();
-        } else {
+        if (response.status !== 0) {
           observer.next(response);
+        } else {
+          return false;
         }
       })
     })
@@ -33,21 +33,18 @@ export class ServersService {
     return new Observable<any>((observer) => {
       this.http.post(environment.API + options.api, JSON.stringify(options.params), { headers: this.headers }).subscribe(
         (response: any) => {
-          if (response) {
-            if (response.status == 400) {
-              this.msg.info(response.error)
-            } else {
-              observer.next(response);
-            }
-          } else {
+          this.msg.info(response.message);
+          if (response.status) {
             observer.next();
+          } else {
+            return false;
           }
-
         },
         (error) => {
           if (error.status == 400 || error.status == 404) {
-            this.msg.info(error.error.message)
+            this.msg.info(error.error)
           } else {
+            this.msg.info('操作成功！');
             observer.next();
           }
         }

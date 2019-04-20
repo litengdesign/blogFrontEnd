@@ -44,10 +44,10 @@ export class LoginComponent implements OnInit {
     }
     let postData = this.server.postRxjsData(options);
     postData.subscribe((data) => {
-      sessionStorage.setItem('token', data.token);
-      this.AuthService.saveToken(data.token)
       //跳转主页
       this.router.navigate(['/dashboard/']);
+      sessionStorage.setItem('token', data.token);
+      this.AuthService.saveToken(data.token)
     })
   }
 }
