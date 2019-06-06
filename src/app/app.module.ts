@@ -19,6 +19,7 @@ import { CategorysComponent } from './pages/categorys/categorys.component';
 import { PostsComponent } from './pages/posts/posts.component'
 import { FileUploadModule } from 'ng2-file-upload';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { MenusComponent } from './pages/menus/menus.component';
 registerLocaleData(zh);
 
 @NgModule({
@@ -32,9 +33,10 @@ registerLocaleData(zh);
     ProductsComponent,
     CategorysComponent,
     PostsComponent,
+    MenusComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     NgZorroAntdModule,
     FormsModule,
@@ -50,3 +52,4 @@ registerLocaleData(zh);
 export class AppModule {
 
 }
+

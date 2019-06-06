@@ -18,7 +18,7 @@ import {
 
 export class ProductsComponent implements OnInit {
   name = 'ng2-ckeditor';
-  ckeConfig: any;
+  ckeConfig: any = this.server.ckConfig;
   mycontent: string;
   log: string = '';
   @ViewChild("myckeditor") ckeditor: any;
@@ -65,16 +65,14 @@ export class ProductsComponent implements OnInit {
       priceMonth:[null, Validators.required],
       status: [null],
       isTop: [null],
+      code: [null],
+      minShopping: [null],
+      useShopping: [null],
+      contract: [null],
     });
    }
 
   ngOnInit() {
-    //初始化编辑器
-    this.ckeConfig = {
-      allowedContent: false,
-      extraPlugins: 'divarea',
-      forcePasteAsPlainText: true
-    };
     //获取产品分类
     this.server.getCategory('product').subscribe((data) => {
       this.categorys = data;
@@ -156,7 +154,7 @@ export class ProductsComponent implements OnInit {
       let obj = {
         uid: item.uid,
         responseUrl: item.url,
-        url: environment.API +'/'+ item.url,
+        url: item.url,
       }
       this.fileList.push(obj);
     })
@@ -175,7 +173,7 @@ export class ProductsComponent implements OnInit {
     //初始化表单值
     let initformData = new Observable<any>((observer) => {
       this.mycontent = item.content;
-      this.validateForm.setValue({ name: item.name, status: item.status, isTop: item.isTop, description: item.description, content: item.content, category: selectCategory, brand: selectBrand, priceMonth: item.priceMonth });
+      this.validateForm.setValue({ name: item.name, status: item.status, isTop: item.isTop, description: item.description, content: item.content, category: selectCategory, brand: selectBrand, priceMonth: item.priceMonth, code: item.code || '', minShopping: item.minShopping || '', useShopping: item.useShopping || '', contract: item.contract || ''});
       observer.next();
     })
     initformData.subscribe(() => {
@@ -192,7 +190,7 @@ export class ProductsComponent implements OnInit {
       if (element.response) {
         paramsObj.thumb.push({
           uid: element.uid,
-          url: element.response.path
+          url: element.response.url
         });
       } else {
         paramsObj.thumb.push({

@@ -4,8 +4,10 @@ import { ProductsComponent } from '../app/pages/products/products.component';
 import { PostsComponent } from '../app/pages/posts/posts.component';
 import { CategorysComponent } from '../app/pages/categorys/categorys.component';
 import { LoginComponent} from './pages/login/login.component';
-import { DefaultComponent} from '../app/layout/default/default.component'
-import { AuthGuard } from '../app/auth/auth.guard'
+import { DefaultComponent} from '../app/layout/default/default.component';
+import { AuthGuard } from '../app/auth/auth.guard';
+import { MenusComponent } from './pages/menus/menus.component';
+
 
 
 
@@ -45,6 +47,13 @@ const routes: Routes = [
           breadcrumb: '品牌列表'
         }
        },
+      {
+        path: 'menus', component: MenusComponent,
+        data: {
+          breadcrumb: '导航管理'
+        }
+      },
+      
     ],
     canActivate: [AuthGuard]
     

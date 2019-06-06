@@ -18,7 +18,7 @@ import {
 
 export class PostsComponent implements OnInit {
   name = 'ng2-ckeditor';
-  ckeConfig: any;
+  ckeConfig: any = this.server.ckConfig;
   mycontent: string;
   log: string = '';
   @ViewChild("myckeditor") ckeditor: any;
@@ -57,22 +57,16 @@ export class PostsComponent implements OnInit {
   constructor(private fb: FormBuilder, public server: ServersService) {
     this.mycontent = `请输入内容`;
     this.validateForm = this.fb.group({
-      name: [null, [Validators.required]],
-      description: [null],
-      content: [null],
+      name: ['', [Validators.required]],
+      description: [''],
+      content: [''],
       category: [null, Validators.required],
-      status: [null],
-      isTop: [null],
+      status: [false],
+      isTop: [false],
     });
   }
 
   ngOnInit() {
-    //初始化编辑器
-    this.ckeConfig = {
-      allowedContent: false,
-      extraPlugins: 'divarea',
-      forcePasteAsPlainText: true
-    };
     //获取产品分类
     this.server.getCategory('article').subscribe((data) => {
       this.categorys = data;
@@ -150,7 +144,7 @@ export class PostsComponent implements OnInit {
       let obj = {
         uid: item.uid,
         responseUrl: item.url,
-        url: environment.API + '/' + item.url,
+        url: item.url,
       }
       this.fileList.push(obj);
     })
@@ -181,7 +175,7 @@ export class PostsComponent implements OnInit {
       if (element.response) {
         paramsObj.thumb.push({
           uid: element.uid,
-          url: element.response.path
+          url: element.response.url
         });
       } else {
         paramsObj.thumb.push({

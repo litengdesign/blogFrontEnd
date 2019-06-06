@@ -9,9 +9,28 @@ import { NzMessageService } from 'ng-zorro-antd';
 })
 export class ServersService {
   configUrl = environment.API;
-  public api_category = '/api/categoryManage/list'
-  public token =''
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+  public api_category = '/api/categoryManage/list';
+  public token ='';
+  public ckConfig = {
+    allowedContent: false,
+    extraPlugins: 'divarea',
+    forcePasteAsPlainText: true,
+    filebrowserUploadUrl: environment.API + '/upload',
+    filebrowserImageUploadUrl: environment.API + '/upload',
+    toolbarGroups:
+      [
+        { name: 'document', groups: ['mode', 'document', 'doctools'] },
+        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+        { name: 'links' },
+        { name: 'insert' },
+        '/',
+        { name: 'styles' },
+        { name: 'colors' },
+        { name: 'tools' },
+      ]
+  }
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient, private msg: NzMessageService) { }
   getSystemName(){
     return "内容管理系统"
@@ -43,9 +62,6 @@ export class ServersService {
         (error) => {
           if (error.status == 400 || error.status == 404) {
             this.msg.info(error.error)
-          } else {
-            this.msg.info('操作成功！');
-            observer.next();
           }
         }
       );

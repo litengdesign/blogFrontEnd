@@ -18,7 +18,7 @@
       <td>{{ item.brand.label }}</td>
       <td>{{item.priceMonth}}</td>
       <td>{{ item.status }}</td>
-      <td>{{ item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{ item.createTime | date : 'yyyy-MM-dd HH:mm'}}</td>
       <td>
         <app-premission (update)="editRow(item)" (delete)="deleteRow(item)"></app-premission>
       </td>
@@ -31,12 +31,21 @@
   (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()" [nzFooter]="modalFooter" [nzStyle]="{ top: '20px' }">
   <form nz-form [formGroup]="validateForm" #myForm="ngForm" >
     <nz-form-item>
-      <nz-form-label [nzSpan]="4" nzRequired>产品名称</nz-form-label>
-      <nz-form-control [nzSpan]="20">
+      <nz-form-label [nzSpan]="4" nzRequired>产品标题</nz-form-label>
+      <nz-form-control [nzSpan]="12">
         <input nz-input formControlName="name" placeholder="请输入" type="text">
         <nz-form-explain *ngIf="validateForm.get('name').dirty">
           <ng-container *ngIf="validateForm.get('name').hasError('required')">
-            产品名称不能为空！
+            产品标题不能为空！
+          </ng-container>
+        </nz-form-explain>
+      </nz-form-control>
+      <nz-form-label [nzSpan]="4" nzRequired>产品型号</nz-form-label>
+      <nz-form-control [nzSpan]="4">
+        <input nz-input formControlName="code" placeholder="请输入" type="text">
+        <nz-form-explain *ngIf="validateForm.get('code').dirty">
+          <ng-container *ngIf="validateForm.get('code').hasError('required')">
+            产品型号不能为空！
           </ng-container>
         </nz-form-explain>
       </nz-form-control>
@@ -60,6 +69,39 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired>保底消费</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <input nz-input formControlName="minShopping" placeholder="请输入" type="text">
+      </nz-form-control>
+      <nz-form-explain *ngIf="validateForm.get('minShopping').dirty">
+        <ng-container *ngIf="validateForm.get('minShopping').hasError('required')">
+          保底消费不能为空！
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired>使用消费</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <input nz-input formControlName="useShopping" placeholder="请输入" type="text">
+      </nz-form-control>
+      <nz-form-explain *ngIf="validateForm.get('useShopping').dirty">
+        <ng-container *ngIf="validateForm.get('useShopping').hasError('required')">
+          使用消费不能为空！
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4" nzRequired>合同期</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <input nz-input formControlName="contract" placeholder="请输入" type="text">
+      </nz-form-control>
+      <nz-form-explain *ngIf="validateForm.get('contract').dirty">
+        <ng-container *ngIf="validateForm.get('contract').hasError('required')">
+          使用消费不能为空！
+        </ng-container>
+      </nz-form-explain>
+    </nz-form-item>
+    <nz-form-item>
       <nz-form-label [nzSpan]="4">产品描述</nz-form-label>
       <nz-form-control [nzSpan]="20">
         <textarea nz-input rows="3" formControlName="description" placeholder="请输入" type="text"></textarea>
@@ -68,7 +110,7 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="4">产品缩略图</nz-form-label>
       <nz-form-control [nzSpan]="20">
-        <nz-upload nzAction="{{api_upload}}" nzListType="picture-card" nzName="file" [(nzFileList)]="fileList"
+        <nz-upload nzAction="{{api_upload}}" nzListType="picture-card" nzName="upload" [(nzFileList)]="fileList"
           [nzShowButton]="fileList.length < 10" [nzPreview]="handlePreview" [nzMultiple]="true">
           <i nz-icon type="plus"></i>
           <div class="ant-upload-text">上传</div>

@@ -4,7 +4,8 @@
     <tr>
       <th>文章标题</th>
       <th>所属分类</th>
-      <th>创建时间</th>
+      <th>发布时间</th>
+      <th>更新时间</th>
       <th>发布状态</th>
       <th>相关操作</th>
     </tr>
@@ -13,7 +14,8 @@
     <tr *ngFor="let item of basicTable.data">
       <td>{{ item.name }}</td>
       <td>{{ item.category.label }}</td>
-      <td>{{ item.createTime | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{ item.createTime | date : 'yyyy-MM-dd HH:mm'}}</td>
+      <td>{{ item.updateDate | date : 'yyyy-MM-dd HH:mm'}}</td>
       <td>{{ item.status }}</td>
       <td>
         <app-premission (update)="editRow(item)" (delete)="deleteRow(item)"></app-premission>
@@ -48,13 +50,25 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="4">文章描述</nz-form-label>
       <nz-form-control [nzSpan]="20">
-        <textarea nz-input rows="3" formControlName="description" placeholder="请输入" type="text"></textarea>
+        <textarea nz-input rows="2" formControlName="description" placeholder="请输入" type="text"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">详细内容</nz-form-label>
+      <nz-form-control [nzSpan]="20">
+        <form #myForm="ngForm">
+          <div class="form-group has-feedback" [ngClass]="{ 'has-error': myckeditor.invalid && myckeditor.touched }">
+            <ckeditor [(ngModel)]="mycontent" #myckeditor="ngModel" name="myckeditor" required [config]="ckeConfig"
+              debounce="600">
+            </ckeditor>
+          </div>
+        </form>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-label [nzSpan]="4">文章缩略图</nz-form-label>
       <nz-form-control [nzSpan]="20">
-        <nz-upload nzAction="{{api_upload}}" nzListType="picture-card" nzName="file" [(nzFileList)]="fileList"
+        <nz-upload nzAction="{{api_upload}}" nzListType="picture-card" nzName="upload" [(nzFileList)]="fileList"
           [nzShowButton]="fileList.length < 10" [nzPreview]="handlePreview" [nzMultiple]="true">
           <i nz-icon type="plus"></i>
           <div class="ant-upload-text">上传</div>
@@ -65,18 +79,6 @@
             <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
           </ng-template>
         </nz-modal>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-label [nzSpan]="4">详细内容</nz-form-label>
-      <nz-form-control [nzSpan]="20">
-        <form #myForm="ngForm">
-          <div class="form-group has-feedback" [ngClass]="{ 'has-error': myckeditor.invalid && myckeditor.touched }">
-            <ckeditor [(ngModel)]="mycontent" #myckeditor="ngModel" name="myckeditor" required [config]="ckeConfig"
-              debounce="700">
-            </ckeditor>
-          </div>
-        </form>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>

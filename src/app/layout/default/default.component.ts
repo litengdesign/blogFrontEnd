@@ -19,6 +19,8 @@ export class DefaultComponent implements OnInit {
   isCollapsed = false;
   triggerTemplate: TemplateRef<void> | null = null;
   logoTemplate: TemplateRef<void> | null = null;
+  fullScreen:boolean = false;
+  userInfoActive: boolean = false;
   @ViewChild('trigger') customTrigger: TemplateRef<void>;
 
   isAllDisplayDataChecked = false;
@@ -66,4 +68,7 @@ export class DefaultComponent implements OnInit {
 
   }
 
+  cancel(): void {
+
+  }
 }
