@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   evnName: 'dev',
-  API: 'http://localhost:4200',
+  API: 'http://localhost:3001',
 };
 // API: 'http://localhost:4200',
 // API: 'http://www.hzscbg.com:4200',
