@@ -21,7 +21,7 @@ export class DefaultComponent implements OnInit {
   logoTemplate: TemplateRef<void> | null = null;
   fullScreen:boolean = false;
   userInfoActive: boolean = false;
-  @ViewChild('trigger') customTrigger: TemplateRef<void>;
+  @ViewChild('trigger', { static: true }) customTrigger: TemplateRef<void>;
 
   isAllDisplayDataChecked = false;
   isIndeterminate = false;

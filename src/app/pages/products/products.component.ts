@@ -21,7 +21,7 @@ export class ProductsComponent implements OnInit {
   ckeConfig: any = this.server.ckConfig;
   mycontent: string;
   log: string = '';
-  @ViewChild("myckeditor") ckeditor: any;
+  @ViewChild("myckeditor", { static: true }) ckeditor: any;
   //列表数据
   isVisible = false;
   //model
