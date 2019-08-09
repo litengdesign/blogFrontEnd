@@ -36,7 +36,7 @@ registerLocaleData(zh);
     MenusComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     AppRoutingModule,
     NgZorroAntdModule,
     FormsModule,
