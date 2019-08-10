@@ -31,7 +31,7 @@ export class DefaultComponent implements OnInit {
   //右侧消息弹框
   visible = false;
   childrenVisible = false;
-  vegetables = ['asparagus', 'bamboo', 'potato', 'carrot', 'cilantro', 'potato', 'eggplant'];
+  vegetables = [];
 
   currentPageDataChange($event: Array<{ id: number; name: string; age: number; address: string }>): void {
     this.listOfDisplayData = $event;

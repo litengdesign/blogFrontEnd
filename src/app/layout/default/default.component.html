@@ -1,15 +1,15 @@
 <div class="app app-header-fixed">
   <nz-header [ngClass]="{'active': isCollapsed}">
     <div class="logo animated fadeInLeft">
-      <span class="icon logo-img">
-      </span>
+      <!-- <span class="icon logo-img">
+      </span> -->
       <span class="campany-name animated fadeInLeft" [routerLink]="[ '/dashboard' ]">
         {{systemName}}
       </span>
     </div>
     <i class="trigger" nz-icon [type]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
       (click)="isCollapsed = !isCollapsed"></i>
-    <a href="http://www.hzscbg.com" target="_blank" class="home-link">前往首页</a>
+    <a href="" target="_blank" class="home-link">前往首页</a>
     <ul class="nav navbar-nav navbar-right">
       <li>
         <i nz-icon [nzType]="fullScreen?'shrink':'arrows-alt'" nzTheme="outline" (click)="fullScreen=!fullScreen"></i>
@@ -41,20 +41,6 @@
     <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="triggerTemplate">
       <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
         <li nz-submenu>
-          <span title><i nz-icon type="printer"></i><span class="nav-text">产品管理</span></span>
-          <ul>
-            <li nz-menu-item>
-              <a [routerLink]="'/products'" routerLinkActive="active">产品列表</a>
-            </li>
-            <li nz-menu-item>
-              <a [routerLink]="'/categorys'" [queryParams]="{type:'product'}" routerLinkActive="active">产品分类</a>
-            </li>
-            <li nz-menu-item>
-              <a [routerLink]="'/brand'" [queryParams]="{type:'brand'}" routerLinkActive="active">品牌</a>
-            </li>
-          </ul>
-        </li>
-        <li nz-submenu>
           <span title><i nz-icon type="book"></i><span class="nav-text">文章管理</span></span>
           <ul>
             <li nz-menu-item>
@@ -71,12 +57,6 @@
             <li nz-menu-item>
               <a [routerLink]="'/menus'" routerLinkActive="active">导航管理</a>
             </li>
-            <li nz-menu-item>
-              <a [routerLink]="'/links'" routerLinkActive="active">友情链接</a>
-            </li>
-            <li nz-menu-item>
-              <a [routerLink]="'/keywords'" routerLinkActive="active">关键词管理</a>
-            </li>
           </ul>
         </li>
       </ul>
@@ -90,7 +70,7 @@
           <router-outlet></router-outlet>
         </div>
       </nz-content>
-      <nz-footer style="text-align: center;">©2019 杭州双成办公设备有限公司</nz-footer>
+      <nz-footer style="text-align: center;">©2019 litengdesign.com</nz-footer>
     </nz-layout>
     <ng-template #trigger>
       <i nz-icon type="up"></i>

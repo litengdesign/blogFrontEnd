@@ -14,7 +14,6 @@ import { PremissionComponent } from './blocks/premission/premission.component';
 import { SearchComponent } from './blocks/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DefaultComponent } from './layout/default/default.component';
-import { ProductsComponent } from './pages/products/products.component';
 import { CategorysComponent } from './pages/categorys/categorys.component';
 import { PostsComponent } from './pages/posts/posts.component'
 import { FileUploadModule } from 'ng2-file-upload';
@@ -30,7 +29,6 @@ registerLocaleData(zh);
     SearchComponent,
     LoginComponent,
     DefaultComponent,
-    ProductsComponent,
     CategorysComponent,
     PostsComponent,
     MenusComponent,
