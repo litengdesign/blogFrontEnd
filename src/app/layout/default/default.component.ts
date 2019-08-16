@@ -13,8 +13,7 @@ import { AuthService} from '../../auth/auth.service'
 export class DefaultComponent implements OnInit {
   constructor(public server: ServersService, public msg: NzMessageService, private router: Router, public activeRouter: ActivatedRoute, public authServer: AuthService) { }
   public api_logout = '/api/logout';
-  public systemName = this.server.getSystemName();
-  text: string = 'Admin';
+  userName: string = 'Admin';
   color: string = '#1890ff';
   isCollapsed = false;
   triggerTemplate: TemplateRef<void> | null = null;
@@ -70,5 +69,36 @@ export class DefaultComponent implements OnInit {
 
   cancel(): void {
 
+  }
+  //全屏
+  setFullScreen() {
+    const doc: any = document;
+    var docElm: any = document.documentElement;
+    if (!this.fullScreen) {
+      if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+      }
+      else if (docElm.msRequestFullscreen) {
+        docElm.msRequestFullscreen();
+      }
+      else if (docElm.mozRequestFullScreen) {
+        docElm.mozRequestFullScreen();
+      }
+      else if (docElm.webkitRequestFullScreen) {
+        docElm.webkitRequestFullScreen();
+      }
+    }
+    else {
+      if (doc.webkitCancelFullScreen) {
+        doc.webkitCancelFullScreen();
+      } else if (doc.mozCancelFullScreen) {
+        doc.mozCancelFullScreen();
+      } else if (doc.cancelFullScreen) {
+        doc.cancelFullScreen();
+      } else if (doc.exitFullscreen) {
+        doc.exitFullscreen();
+      }
+    }
+    this.fullScreen = !this.fullScreen;
   }
 }

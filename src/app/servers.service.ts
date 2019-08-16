@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -31,10 +32,9 @@ export class ServersService {
       ]
   }
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  constructor(private http: HttpClient, private msg: NzMessageService) { }
-  getSystemName(){
-    return "内容管理系统"
-  }
+  constructor(private http: HttpClient, private msg: NzMessageService, public router: Router) { }
+  public systemName = "内容管理系统";
+  public theme = 'light';
   //通过rxjs获取数据
   getRxjsData(options) {
     return new Observable<any>((observer) => {
@@ -60,9 +60,11 @@ export class ServersService {
           }
         },
         (error) => {
-          if (error.status == 400 || error.status == 404) {
-            this.msg.info(error.error)
+          if (error.status == 401) {
+            this.router.navigate(['/login']);
           }
+          debugger
+          this.msg.info(error.error.message)
         }
       );
     });

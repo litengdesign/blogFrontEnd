@@ -34,8 +34,8 @@ export class CategorysComponent implements OnInit {
   //列表相关数据
   public displayData:any = []; //存储列表数据
   public isLoading = false; //用于加载效果
-  public Page = 1;          //初始页码
-  public Rows = 10;         //显示行数
+  public pageIndex = 1;          //初始页码
+  public pageSize = 10;         //显示行数
   public total = 1;         //总条数
   public Sord = null;       //正反序
   public OrderBy = null;    //排序字段
@@ -73,17 +73,17 @@ export class CategorysComponent implements OnInit {
     }
     this.server.getRxjsData(options).subscribe((data) => {
       this.displayData = data.data;
+      this.loading = false;
     })
   }
-  //搜索列表
   //搜索事件
   searchData(keyword?, reset: boolean = false): void {
     this.isLoading = true;
     if (reset) {
-      this.Page = 1;
+      this.pageIndex = 1;
     }
     this.loading = true;
-    this.getList(keyword, this.Page, this.Rows, this.Sidx).subscribe((data: any) => {
+    this.getList(keyword, this.pageIndex, this.pageSize, this.Sidx).subscribe((data: any) => {
       this.loading = false;
       this.total = data.total;
       this.colData = data.data;
@@ -95,11 +95,11 @@ export class CategorysComponent implements OnInit {
     let params: any = {}
     params.name = keyword ? keyword : '';
     params.type = this.categoryType;
-    if (this.Page) {
-      params.Page = this.Page;
+    if (this.pageIndex) {
+      params.Page = this.pageIndex;
     }
-    if (this.Rows) {
-      params.Rows = this.Rows;
+    if (this.pageSize) {
+      params.Rows = this.pageSize;
     }
     if (this.Sidx) {
       params.Sidx = this.Sidx;

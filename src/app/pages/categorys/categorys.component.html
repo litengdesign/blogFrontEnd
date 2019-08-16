@@ -1,22 +1,41 @@
-<app-search (add)="showModal()" (search)="searchData($event)"></app-search>
-<nz-table #basicTable [nzData]="displayData" nzBordered nzSize="middle">
-  <thead>
-    <tr>
-      <th>类型</th>
-      <th>分类名称</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of basicTable.data">
-      <td>{{ item.type }}</td>
-      <td>{{ item.name }}</td>
-      <td>
-        <app-premission (update)="updateRow(item)" (delete)="deleteRow(item)"></app-premission>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
+<nz-breadcrumb [nzAutoGenerate]="true">
+  <nz-breadcrumb-item>您所在的位置</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="content">
+  <div nz-row nzGutter="8" class="text-right">
+    <app-search (add)="showModal()" (search)="searchData($event)"></app-search>
+  </div>
+  <nz-table        
+    #basicTable
+    nzShowSizeChanger
+    nzBordered
+    nzSize="middle"
+    [nzFrontPagination]="false"
+    [nzData]="displayData"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)">
+    <thead>
+      <tr>
+        <th>类型</th>
+        <th>分类名称</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td>{{ item.type }}</td>
+        <td>{{ item.name }}</td>
+        <td>
+          <app-premission (update)="updateRow(item)" (delete)="deleteRow(item)"></app-premission>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
 <!-- 编辑框 -->
 <nz-modal [nzWidth]="700" [(nzVisible)]="isVisible" nzTitle="{{modalTitle}}" nzOkText="确定" nzCancelText="取消" (nzOnOk)="handleOk()"
   (nzOnCancel)="handleCancel()" [nzFooter]="modalFooter">

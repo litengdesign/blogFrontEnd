@@ -13,7 +13,7 @@ const routes: Routes = [
     component: DefaultComponent,
     children: [
       { 
-        path: '', redirectTo: 'dashboard', pathMatch: 'full' ,
+        path: '', redirectTo: 'posts', pathMatch: 'full' ,
         data:{
           breadcrumb:'产品列表'
         }

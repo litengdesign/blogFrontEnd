@@ -1,29 +1,47 @@
-<app-search (add)="showModal()"></app-search>
-<nz-table #basicTable [nzData]="displayData" nzBordered nzSize="middle">
-  <thead>
-    <tr>
-      <th>文章标题</th>
-      <th>所属分类</th>
-      <th>发布时间</th>
-      <th>更新时间</th>
-      <th>发布状态</th>
-      <th>相关操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of basicTable.data">
-      <td>{{ item.name }}</td>
-      <td>{{ item.category.label }}</td>
-      <td>{{ item.createTime | date : 'yyyy-MM-dd HH:mm'}}</td>
-      <td>{{ item.updateDate | date : 'yyyy-MM-dd HH:mm'}}</td>
-      <td>{{ item.status }}</td>
-      <td>
-        <app-premission (update)="editRow(item)" (delete)="deleteRow(item)"></app-premission>
-      </td>
-    </tr>
-  </tbody>
-</nz-table>
-
+<nz-breadcrumb [nzAutoGenerate]="true">
+  <nz-breadcrumb-item>您所在的位置</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div class="content">
+  <div nz-row nzGutter="8" class="text-right">
+    <app-search (add)="showModal()"></app-search>
+  </div>
+  <nz-table 
+    #basicTable 
+    nzShowSizeChanger 
+    nzBordered 
+    nzSize="middle" 
+    [nzFrontPagination]="false" 
+    [nzData]="displayData"
+    [nzLoading]="loading" 
+    [nzTotal]="total" 
+    [(nzPageIndex)]="pageIndex" 
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="searchData()" 
+    (nzPageSizeChange)="searchData(true)">
+    <thead>
+      <tr>
+        <th>文章标题</th>
+        <th>所属分类</th>
+        <th>发布时间</th>
+        <th>更新时间</th>
+        <th>发布状态</th>
+        <th>相关操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basicTable.data">
+        <td>{{ item.name }}</td>
+        <td>{{ item.category.label }}</td>
+        <td>{{ item.createTime | date : 'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{ item.updateDate | date : 'yyyy-MM-dd HH:mm'}}</td>
+        <td>{{ item.status }}</td>
+        <td>
+          <app-premission (update)="editRow(item)" (delete)="deleteRow(item)"></app-premission>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
 <!-- 编辑框 -->
 <nz-modal [nzWidth]="960" [(nzVisible)]="isVisible" nzTitle="{{modalTitle}}" nzOkText="确定" nzCancelText="取消"
   (nzOnOk)="handleOk()" (nzOnCancel)="handleCancel()" [nzFooter]="modalFooter" [nzStyle]="{ top: '20px' }">

@@ -20,7 +20,6 @@ import {  } from '@angular/forms';
 export class LoginComponent implements OnInit {
   private headers = new HttpHeaders({ 'Content-Type': 'application/json' }); //发送post请求头部
   public api = '/api/auth';
-  public systemName = this.server.getSystemName();
   validateForm: FormGroup;
 
   constructor(private fb: FormBuilder, public http: HttpClient, public router: Router, public server: ServersService, public AuthService: AuthService) {
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
     let postData = this.server.postRxjsData(options);
     postData.subscribe((data) => {
       //跳转主页
-      this.router.navigate(['/dashboard/']);
+      this.router.navigate(['/posts/']);
       sessionStorage.setItem('token', data.token);
       this.AuthService.saveToken(data.token)
     })
